@@ -84,11 +84,13 @@ function highlightCurrentTask() {
     taskDiv.textContent = taskContent;
     
     if (isTaskCurrent(task, currentTime)) {
-      taskDiv.classList.add("task", "highlight"); // Resaltar tarea actual
+      //taskDiv.classList.add("task", "highlight"); // Resaltar tarea actual
+      taskDiv.classList.add("task", "highlight", "fade-in");
       if (isTaskFinished(task)) {
         playTaskFinishSound();
       }
     } else {
+      //taskDiv.classList.add("task", "slide-in"); // Agrega clase para la animación
       taskDiv.classList.add("task");
     }
     taskElement.appendChild(taskDiv);

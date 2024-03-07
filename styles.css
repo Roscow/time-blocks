@@ -33,6 +33,55 @@ body {
     background-color: black;
     color: white;
     height: 150px;
-    font-size: 50px;
+    font-size: 1.5rem;
     font-family: "Roboto", Arial, sans-serif;
   }
+
+
+  nav {
+    background-color: #f8f9fa; /* Color de fondo */
+    padding: 10px; /* Espacio interno */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+  ul {
+    list-style-type: none; /* Quitar los puntos de la lista */
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    display: inline; /* Mostrar elementos de lista en línea */
+    margin-right: 20px; /* Espacio entre elementos */
+  }
+  
+  a {
+    text-decoration: none; /* Quitar subrayado de los enlaces */
+    color: #212529; /* Color del texto */
+    font-size: 16px; /* Tamaño de la fuente */
+    font-weight: bold; /* Peso de la fuente */
+  }
+  
+  a:hover {
+    color: #007bff; /* Cambiar color al pasar el mouse */
+  }
+
+  /* Define las animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.slide-in {
+  animation: slideIn 1s ease forwards;
+}
