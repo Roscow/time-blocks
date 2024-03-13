@@ -42,7 +42,7 @@ const tasks = {
         { task: "Ketoconazole", startHour: '22:25', duration: 5 },    
         { task: "Sleep", startHour: '22:30', duration: 0 },  
       ],
-      "Miercoles": [
+      "Miércoles": [
           { task: "Silicone Scalp Massager", startHour: '6:30' , duration: 5 }, 
           { task: "Minoxidile - Saw Palmeto", startHour: '6:35' , duration: 5 }, 
           { task: "Order", startHour: '6:40' ,duration: 10 },  
