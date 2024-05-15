@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Schedule</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+          <li><a href="index.html">Produce</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="addblock.html">Blocks</a></li>
+        </ul>
+      </nav>
+    <div class="container">
+        <h2>Modificar Schedule</h2>
+        <label for="block1">Block 1:</label>
+        <input type="text" id="block1"><br>
+        <label for="block2">Block 2:</label>
+        <input type="text" id="block2"><br>
+        <label for="block3">Block 3:</label>
+        <input type="text" id="block3"><br>
+        <label for="block4">Block 4:</label>
+        <input type="text" id="block4"><br>
+        <label for="block5">Block 5:</label>
+        <input type="text" id="block5"><br>
+        <!-- Agrega inputs para los demás bloques -->
+
+        <button onclick="guardar()">Guardar</button>
+        <button onclick="borrar()">Borrar</button>
+
+    </div>
+    <script>        
+        // Función para obtener el día actual
+        function getCurrentDay() {
+        const days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+        const currentDate = new Date();
+        const currentDay = days[currentDate.getDay()];
+        return currentDay;
+        }
+        function guardar() {
+            // Leer los valores de los inputs
+            var block1 = document.getElementById('block1').value;
+            var block2 = document.getElementById('block2').value;
+            var block3 = document.getElementById('block3').value;
+            var block4 = document.getElementById('block4').value;
+            var block5 = document.getElementById('block5').value;
+
+            // Obtener el día actual
+            var diaActual = getCurrentDay();
+
+            // Obtener las tareas para el día actual desde schedule.js
+            fetch('schedule.js')
+            .then(response => response.json())
+            .then(schedule => {
+                // Obtener las tareas del día actual
+                var tareasDelDia = schedule[diaActual];
+                
+                // Actualizar las tareas con los valores de los inputs
+                tareasDelDia.forEach(tarea => {
+                    if (tarea.task.includes("BLOCK")) {
+                        var bloque = tarea.task.match(/BLOCK(\d+)/)[1];
+                        switch (bloque) {
+                            case '1':
+                                tarea.task = tarea.task.replace(/\([^)]*\)/, "('" + block1 + "')");
+                                break;
+                            case '2':
+                                tarea.task = tarea.task.replace(/\([^)]*\)/, "('" + block2 + "')");
+                                break;
+                            case '3':
+                                tarea.task = tarea.task.replace(/\([^)]*\)/, "('" + block3 + "')");
+                                break;
+                            case '4':
+                                tarea.task = tarea.task.replace(/\([^)]*\)/, "('" + block4 + "')");
+                                break;
+                            case '5':
+                                tarea.task = tarea.task.replace(/\([^)]*\)/, "('" + block5 + "')");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+
+                // Guardar las tareas modificadas en localStorage
+                localStorage.setItem('currentDayTasks', JSON.stringify(tareasDelDia));
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function borrar() {
+            // Borrar los datos del localStorage
+            localStorage.removeItem('currentDayTasks');
+        }
+
+
+    </script>
+</body>
+</html>

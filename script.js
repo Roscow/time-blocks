@@ -6,6 +6,38 @@ function getCurrentDay() {
   return currentDay;
 }
 
+
+function modificarTareas() {
+  // Obtener el día actual (asumo que esta lógica ya está implementada)
+  var diaActual = getCurrentDay();
+
+  // Obtener las tareas para el día actual desde el archivo schedule.js
+  fetch('schedule.js')
+  .then(response => response.text())
+  .then(data => {
+      // Parsear el contenido de schedule.js para obtener las tareas del día actual
+      var schedule = JSON.parse(data);
+      var tareasDelDia = schedule[diaActual];
+
+      // Modificar las tareas con los valores de los inputs
+      tareasDelDia.forEach(tarea => {
+          if (tarea.task.includes("BLOCK")) {
+              // Obtener el número del bloque de la tarea (BLOCK1, BLOCK2, etc.)
+              var bloque = tarea.task.match(/BLOCK(\d+)/)[1];
+              // Obtener el valor del input correspondiente al bloque actual
+              var valorInput = document.getElementById('block' + bloque).value;
+              // Modificar la tarea con el valor del input
+              tarea.task = tarea.task.replace(/\([^)]*\)/, "('" + valorInput + "')");
+          }
+      });
+
+      // Guardar las tareas modificadas en el archivo schedule.js (en este ejemplo, simplemente imprimimos las tareas modificadas)
+      console.log(tareasDelDia);
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+
 // Función para mostrar el día actual en el elemento HTML
 function displayCurrentDay() {
   const currentDay = getCurrentDay();
@@ -37,22 +69,32 @@ function formatDuration(duration) {
   return `${duration} min`; // Agregar el texto "min" al final de la duración
 }
 
-// Función para mostrar las tareas del día actual en el elemento HTML
 function displayTasksForCurrentDay() {
-  const tasksForCurrentDay = getTasksForCurrentDay();
+  let tasksForCurrentDay;
+
+  // Intentar leer las tareas del día actual desde localStorage
+  const localStorageTasks = localStorage.getItem('currentDayTasks');
+  if (localStorageTasks) {
+      // Si hay datos en localStorage, usar esos datos
+      tasksForCurrentDay = JSON.parse(localStorageTasks);
+  } else {
+      // Si no hay datos en localStorage, obtener las tareas del día actual desde schedule.js
+      tasksForCurrentDay = getTasksForCurrentDay();
+  }
+
+  // Mostrar las tareas en el elemento HTML
   const currentTasksElement = document.getElementById("currentTasks");
   currentTasksElement.innerHTML = ""; // Limpiar contenido anterior
   tasksForCurrentDay.forEach(task => {
-    const taskElement = document.createElement("div");  
-
-    const startTime = formatHour(task.startHour); // Obtener la hora de inicio formateada
-    //const taskContent = `${startTime} [${formatDuration(task.duration)}]  ${task.task} - `; // Concatenar la hora de inicio, nombre de la tarea y duración
-    const taskContent = `${startTime}   ${task.task} `; // Concatenar la hora de inicio, nombre de la tarea y duración
-    taskElement.textContent = taskContent;
-    taskElement.classList.add("task"); 
-    currentTasksElement.appendChild(taskElement);
+      const taskElement = document.createElement("div");
+      const startTime = formatHour(task.startHour); // Obtener la hora de inicio formateada
+      const taskContent = `${startTime}   ${task.task} `;
+      taskElement.textContent = taskContent;
+      taskElement.classList.add("task");
+      currentTasksElement.appendChild(taskElement);
   });
 }
+
 
 
 // Función para obtener la hora actual

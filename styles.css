@@ -30,7 +30,7 @@ body {
     border-radius: 10px; /* Agrega bordes redondeados */
   }
   .task.highlight {
-    background-color: black;
+    background-color:  darkcyan;
     color: white;
     height: 150px;
     font-size: 1.5rem;
