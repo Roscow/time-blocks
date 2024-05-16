@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <title>About</title>
+    <style>
+        body {
+          background-color: #f8f9fa;
+        }
+        table {
+          width: 100%;
+          background-color: #fff;
+          border: 1px solid #000;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+        }
+        th, td {
+          border: 1px solid #000;
+          padding: 8px;
+        }
+        th {
+          background-color: #000;
+          color: #fff;
+          text-align: left;
+        }
+        tbody tr:nth-child(odd) {
+          background-color: #f2f2f2;
+        }
+        .done {
+            text-decoration: line-through; /* Esto tacha el texto */
+        }
+        .todo li{
+            display: block; /* Mostrar elementos de lista en línea */
+        }
+      </style>
+</head>
+<body>
+    <nav>
+        <ul>
+          <li><a href="diet.html">Diet</a></li>
+          <li><a href="training.html">Training</a></li>
+          <li><a href="productivity.html">Productivity</a></li>
+          <li><a href="study.html">Studies</a></li>
+          <li><a href="other.html">Other</a></li>
+        </ul>
+      </nav>
+      <div class="container">
+        <div class="contador">
+            <div class="numero" id="diasRestantes"></div>
+            <div class="texto"> Dias faltantes para competir <br> </div> <br>
+        </div>
+        <details>
+            <summary><strong>Events</strong> </summary>
+            <table>
+                <tr><th>Date</th><th>Event</th><th>Goal</th></tr>
+                <tr>
+                    <td>01/09/2024</td>
+                    <td>Topman concon</td>
+                    <td>Finish</td>
+                </tr>
+                <tr>
+                    <td>20/10/2024</td>
+                    <td>Topman piedra roja</td>
+                    <td>Win</td>
+                </tr>
+            </table>
+        </details>
+        <br>
+
+        <details>
+            <summary> <strong>Schedule</strong> </summary>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monday</td>
+                        <td>Muscular - Recovery -Movility</td>
+                    </tr>
+                    <tr>
+                        <td>Thusday</td>
+                        <td>Cycling</td>
+                    </tr>
+                    <tr>
+                        <td>Wendsday</td>
+                        <td>Swiming</td>
+                    </tr>
+                    <tr>
+                        <td>Jueves</td>
+                        <td>Running</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul>
+                <li>Stretch after every training</li>
+            </ul>
+            
+        </details>
+        <br>
+
+        <details>
+            <summary><strong>Progress</strong></summary>
+                <h4>Swimming</h4>
+                <p> 
+                    Goal: <strong>1.5 ktms</strong> <br>
+                    Record: <br>
+                </p>
+                <canvas id="swimmingChart" style="width:50%; height:auto;"></canvas>
+                <br>
+
+                <h4>Running</h4>
+                <p> 
+                    Goal: <strong>10 ktms</strong> <br>
+                    Record: <br>
+                </p>
+                <canvas id="runningChart" style="width:50%; height:auto;"></canvas>
+                <br>
+
+                <h4>Cycling</h4>
+                <p> 
+                    Goal: <strong>40 ktms</strong> <br>
+                    Record: <br>
+                </p>
+                <canvas id="cyclingChart" style="width:50%; height:auto;"></canvas>
+                <br>
+        </details>
+        <br>
+
+        <details>
+            <summary><strong>Tasks</strong> </summary>
+            <ul class="todo">
+                <li class="done">Create web-program</li>
+                <li>Buy bike for competition </li>
+                <li class="done"><Buy roller for indoor training</li>
+                <li>Suscribe swiming</li>
+                <li>Buy bootles</li>
+                <li>Change Maillot (Personalize)</li>
+                <li>Buy Running cloth</li>
+                <li>Set bike for indoor training (odometer, wheels</li>
+            </ul>
+        </details>
+        <br>
+
+        <details>
+            <summary>Galery</summary>
+        </details>
+        <br>
+
+        <details>
+            <summary><strong>Log</strong>  </summary>
+            <section>
+                <h2>Date: [15-05-2024] - Starting point</h2>
+                <p>Plan structure, i have just updated the page and upload all relevant information about my triatlon journey, 
+                   right now im in a zero ground, have really low cardio condition, a basic techique in swmiming, in cycling and running i 
+                   have some experience but not competitive, just recreational. the good points are that i have god shape, have a healthy 
+                   diet and im not sedentary. 
+                </p>
+            </section>
+
+            <section>
+                <h2>Date: [16-05-2024] - Cycling setup</h2>
+                <p>
+                    I have already buy the roller for indoor training. have watch some olimpic competition, analize the time for each 
+                    discipline, and this are : swiming: 20 min / cycling: 1 hour/ running: 30 min/   i think that the trainig time for 
+                    me should be like. 30min/1.5 hour/30 min , training each one separatetly.   
+                </p>
+            </section>
+
+        </details>
+        <br>
+
+
+
+      </div>
+
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+      <script>
+        // Función que calcula la diferencia de días
+        function calcularDiasHastaFecha() {
+          const fechaObjetivo = new Date("2024-09-01T00:00:00"); // Fecha objetivo en formato YYYY-MM-DD
+          const ahora = new Date(); // Fecha y hora actual
+          const diferencia = fechaObjetivo - ahora; // Diferencia en milisegundos
+          const dias = Math.ceil(diferencia / (1000 * 60 * 60 * 24)); // Convertir de milisegundos a días
+          document.getElementById('diasRestantes').textContent = dias; // Mostrar los días en el elemento HTML
+        }
+      
+        // Llama a la función al cargar la página
+        calcularDiasHastaFecha();
+      
+        // Actualizar el contador cada día (86400000 milisegundos)
+        setInterval(calcularDiasHastaFecha, 86400000);
+
+
+
+
+
+
+
+      </script>
+
+
+    <!-- script para swiming progress-->
+    <script>
+        const dates = ['16-05-2024', '17-05-2024']; // Añade nuevas fechas aquí
+        const times = [2, 2]; // Añade nuevos tiempos aquí
+        const ctx = document.getElementById('swimmingChart').getContext('2d');
+        const swimmingChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Swimming Time (hrs)',
+                    data: times,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(0, 123, 255, 0.5)'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Hours Spent'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Luego, cuando agregues nuevos datos, actualiza las variables `dates` y `times` y llama a:
+        swimmingChart.update();
+
+    </script>
+      
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        // Datos para Running
+        const runningDates = ['16-05-2024', '18-05-2024']; // Ejemplo de fechas
+        const runningTimes = [30, 45]; // Ejemplo de tiempos en minutos
+
+        const ctxRunning = document.getElementById('runningChart').getContext('2d');
+        const runningChart = new Chart(ctxRunning, {
+            type: 'line',
+            data: {
+                labels: runningDates,
+                datasets: [{
+                    label: 'Running Time (minutes)',
+                    data: runningTimes,
+                    borderColor: 'green',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Time Spent'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Datos para Cycling
+        const cyclingDates = ['16-05-2024', '19-05-2024']; // Ejemplo de fechas
+        const cyclingTimes = [120, 150]; // Ejemplo de tiempos en minutos
+
+        const ctxCycling = document.getElementById('cyclingChart').getContext('2d');
+        const cyclingChart = new Chart(ctxCycling, {
+            type: 'line',
+            data: {
+                labels: cyclingDates,
+                datasets: [{
+                    label: 'Cycling Time (minutes)',
+                    data: cyclingTimes,
+                    borderColor: 'red',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Time Spent'
+                        }
+                    }
+                }
+            }
+        });
+    });
+    </script>
+
+
+</body>
+</html>
